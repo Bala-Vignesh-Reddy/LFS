@@ -1,0 +1,87 @@
+lfs (linux from scratch) i am working on this because i wanted to understand how the linux is wokring under the hood..
+
+day-0
+So for this, the best resource is the lfs book created by gerarad beekmans
+
+Firstly there was preface and why this book was written.. 
+two lfs system was told.. 32 bit and 64 bit
+
+For prerequisites
+There were two docs given.. 
+- software-building-HOWTO
+- Beginner's Guide to installing from source
+
+day-1
+lfs follows some standards
+- POSIX
+- FHS file hierarchy standard
+- Linux standard base
+
+Packages which is used to build in the lfs.. why they are important.. learned about that..
+
+errata and security advisories
+to check whether package version or instructions in the particular release needed to be changed.. then visit https://www.linuxfromscratch.org/lfs/errata/12.2/
+similarly for list of security vulnerabilites visit https://www/linuxfromscratch.org/lfs/advisories/
+
+
+Real work begins now... 
+
+First created version_check.sh
+this script checks for the tools needed to compile programs.. 
+
+first created a partition.. i was having ubunutu and windows.. dual booted in my device.. it is recommeded that we should build this on the linux distro..
+In linux.. then we have to create a partition.. of 20gb and 2 gb swap.. this is what i created.. due to storage constraint i had..
+
+then created file system i used ext4.. which is the latest version of the ext family.. 
+we can use cfdisk or fdisk.. i have used `cfdisk <partition>` - dialogs box opens, select the parition and set the configuration needed.. 
+
+day-2
+`mkfs -v -t etx4 /dev/<xxx>` <xxx> is the name of the lfs partition
+for creating swap partition
+`mkswap /dev/<yyy>`
+
+Setting up $LFS variable.. this is setup to use it throughout the building process.
+`export LFS=/mnt/lfs` i have used /mnt/lfs mentioned as in the book
+
+Mounting the new partition
+`mkdir -pv $LFS`
+`mount -v -t ext4 /dev/<xxx> $LFS`
+
+if we are not building this in one go.. then add the following command in /etc/fstab
+`/dev/<xxx> /mnt/lfs etx4 defaults 1 1` - for main parition
+`/dev/<xxx> none swap sw 0 1` - for swap file
+
+enabling swap using swapon
+`/sbin/swapon -v /dev/<zzz>`
+
+Now installing packages and patches
+created sources folder gave required persmission.. to that
+
+installed all the necessary packages and patches.. for that created a file `wget-list` consist of the all the link... for checking that used a md5sums check.. which verifies that all correct packages are installed..
+
+Now creating a unprivileged user.. to create an appropriate build environment..
+created /etc, /var and /usr/bin, /usr/lib, /usr/sbin directories.. added symbolic link to these directories using ln cmd
+
+now adding /lib64 also.. 
+
+we will be using cross-compiler which we will install it in new directory.. 
+/tools
+
+adding lfs user.. 
+created a lfs group.. this is done because if we run a one single cmd wrong as root.. our whole system is in risk.. 
+`groupadd lfs` - to view that `cat /etc/group`
+`useradd - s /bin/bash -g lfs -m -k /dev/null lfs` 
+-s /bin/bash - this makes bash the default shell for user lfs
+-g lfs - this option adds user lfs to group lfs
+-m - this creates a home directory for lfs
+-k /dev/null - this parameter prevents possible copying of files from a skeletion directory.
+lfs - name of new user.. 
+
+setting password for lfs
+`passwd lfs`
+granting lfs full access to all directories under the /mnt/lfs.. using chown cmd
+
+to start a shell running as use lfs.. `su - lfs` '-' instructs su to start login shell as opposed to a non-login shell.. 
+
+day-3
+
