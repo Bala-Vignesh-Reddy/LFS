@@ -163,3 +163,12 @@ Since Ubuntu is already installed on my machine and manages GRUB in UEFI mode, I
 ---
 
 ### It was great experience building this.. and will continue with it if time premits.. we'll add some additional tools and try to make it crazyy.. 
+
+---
+
+## Glimpse:
+
+![WhatsApp Image 2025-02-11 at 17 42 10](https://github.com/user-attachments/assets/16c8635f-8fcd-4d52-b2f7-8e8a09fc4bee)
+
+![WhatsApp Image 2025-02-09 at 22 43 13](https://github.com/user-attachments/assets/17704fdf-2da5-444d-808a-f0426eafe4fb)
+![WhatsApp Image 2025-02-09 at 22 43 14](https://github.com/user-attachments/assets/8eede5ae-47ff-4cc4-b803-66bb24406a5b)
